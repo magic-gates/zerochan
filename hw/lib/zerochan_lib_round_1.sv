@@ -1,6 +1,6 @@
 module zerochan_lib_round_1 #
 ( parameter int INPUT = 16
-, parameter int ROUND = 16
+, parameter int ROUND = 8
 , parameter int OUTPUT = INPUT - ROUND
 )
 ( input  logic                     clk
@@ -11,16 +11,31 @@ module zerochan_lib_round_1 #
 , output logic signed [OUTPUT-1:0] o
 );
 
-    wire sign    =  i[INPUT-1];
+    generate
+        if (ROUND <= 0 || ROUND >= INPUT) begin : gen_validate
+            $error("Invalid parameters: ROUND (%0d) must be > 0 and < INPUT (%0d)", ROUND, INPUT);
+        end
+    endgenerate
 
-    wire lsb     =  i[ROUND];
-    wire halfway =  i[ROUND-1];
-    wire sticky  = |i[ROUND-2:0];
+    wire sign   = i[INPUT-1];
 
-    wire round_up = halfway && (sticky || lsb);
+    wire lsb    =  i[ROUND];
+    wire guard  =  i[ROUND-1];
 
-    wire signed [OUTPUT:0] sum = $signed(i[INPUT-1:ROUND]) + round_up;
-    wire overflow = ~sign & sum[OUTPUT];
+    logic sticky;
+
+    generate
+        if (ROUND > 1) begin : gen_sticky
+            assign sticky = |i[ROUND-2:0];
+        end else begin : gen_no_sticky
+            assign sticky = 1'b0;
+        end
+    endgenerate
+
+    wire round_up = guard & (sticky | lsb);
+
+    wire [OUTPUT:0] sum = $signed(i[INPUT-1:ROUND]) + $signed({1'b0, round_up});
+    wire overflow = sum[OUTPUT] ^ sum[OUTPUT-1];
 
     always_ff @(posedge clk) begin
         if (ce) begin

@@ -73,6 +73,7 @@ module zerochan_tx
 
     zerochan_lib_fft_1024 #
     ( .INPUT_WIDTH(10)
+    , .TWIDDLE_WIDTH(18)
     , .INVERSE(1'b1)
     ) u_ifft
     ( .clk(clk)
@@ -206,31 +207,35 @@ module zerochan_tx_gearbox #
 , output logic signed [OUTPUT_WIDTH-1:0] o_im
 );
 
-    wire [INPUT_WIDTH-2:0] agc_re_abs = (i_re < 0) ? (-i_re) : (i_re);
-    wire [INPUT_WIDTH-2:0] agc_im_abs = (i_im < 0) ? (-i_im) : (i_im);
+    localparam int LSC = $clog2(INPUT_WIDTH);
 
-    logic [INPUT_WIDTH-2:0] agc_value;
+    logic [LSC-1:0] lsc_re, lsc_im;
+
+    zerochan_lib_lsc_0 #(INPUT_WIDTH) u_lsc_re (i_re, lsc_re);
+    zerochan_lib_lsc_0 #(INPUT_WIDTH) u_lsc_im (i_im, lsc_im);
+
+    logic [LSC-1:0] lsc_top;
     logic [INPUT_WIDTH-1:0] re_1, im_1;
     logic [INDEX_WIDTH-1:0] idx_1;
 
     always_ff @(posedge clk) begin
         if (i_ce) begin
-            agc_value <= agc_re_abs > agc_im_abs ? agc_re_abs : agc_im_abs;
+            lsc_top <= lsc_re <= lsc_im ? lsc_re : lsc_im;
             {re_1, im_1} <= {i_re, i_im};
             idx_1 <= i_idx;
         end
     end
 
-    logic [INPUT_WIDTH-2:0] agc_max, agc_gain;
-    logic [INPUT_WIDTH-1:0] re_2, im_2;
+    logic [LSC-1:0] lsc_min;
     logic [INDEX_WIDTH-1:0] idx_2;
+    logic [INPUT_WIDTH-1:0] re_2, im_2;
 
     always_ff @(posedge clk) begin
         if (i_ce) begin
             if (idx_1 == 0) begin
-                agc_max <= agc_value;
-            end else if (agc_value > agc_max) begin
-                agc_max <= agc_value;
+                lsc_min <= LSC'(INPUT_WIDTH - 1);
+            end else if (lsc_top < lsc_min) begin
+                lsc_min <= lsc_top;
             end
 
             {re_2, im_2} <= {re_1, im_1};
@@ -238,18 +243,14 @@ module zerochan_tx_gearbox #
         end
     end
 
-    localparam int GAIN_WIDTH = $clog2(INPUT_WIDTH);
-
     logic [INPUT_WIDTH-1:0] re_3, im_3;
     logic [INDEX_WIDTH-1:0] fwd_idx, rev_idx;
-    logic [GAIN_WIDTH-1:0] agc_lzc, gain;
-
-    zerochan_lib_lzc_0 #(INPUT_WIDTH-1) u_lzc (agc_max, agc_lzc);
+    logic [LSC-1:0] gain;
 
     always_ff @(posedge clk) begin
         if (i_ce) begin
             if (idx_2 == INDEX_WIDTH'(FFT_N - 1)) begin
-                gain <= agc_lzc;
+                gain <= lsc_min;
             end
 
             {re_3, im_3} <= {re_2, im_2};
@@ -271,7 +272,7 @@ module zerochan_tx_gearbox #
 
     logic [INDEX_WIDTH-1:0] ptr;
 
-    logic [GAIN_WIDTH-1:0] gain_1;
+    logic [LSC-1:0] gain_1;
 
     always_ff @(posedge clk) begin
         ptr <= ptr + INDEX_WIDTH'(1);
@@ -292,7 +293,7 @@ module zerochan_tx_gearbox #
         end
     end
 
-    logic [GAIN_WIDTH-1:0] gain_2;
+    logic [LSC-1:0] gain_2;
     logic [INPUT_WIDTH-1:0] z_re, z_im;
 
     always_ff @(posedge clk) begin

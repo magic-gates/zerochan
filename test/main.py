@@ -41,7 +41,25 @@ async def rx(dut):
 
 def test_signal(n_sym):
     # return np.full(n_sym, 0 + 0j)
-    return generate_64qam(n_sym) * 511.0
+    return generate_qpsk(n_sym) * 511.0
+
+async def external_channel(dut):
+    data = np.fromfile("signal.bin", dtype=np.int16)
+
+    I = data[0::2]
+    Q = data[1::2]
+
+    signal = I + 1j * Q
+
+    for sample in signal:
+        dut.i_loop_re.value = int(
+            np.clip(sample.real, -2048, 2047).astype(np.int16)
+        )
+        dut.i_loop_im.value = int(
+            np.clip(sample.imag, -2048, 2047).astype(np.int16)
+        )
+
+        await RisingEdge(dut.clk)
 
 async def channel(dut):
     """Sample-by-sample channel processing loop."""
@@ -56,9 +74,9 @@ async def channel(dut):
         sample = complex(re_in, im_in)
 
         # Apply channel pipeline sample by sample
-        # sample = cfo_effect.apply(sample)
-        # sample = path_effect.apply(sample)
-        # sample = awgn_effect.apply(sample)
+        sample = cfo_effect.apply(sample)
+        sample = path_effect.apply(sample)
+        sample = awgn_effect.apply(sample)
 
         dut.i_loop_re.value = int(
             np.clip(sample.real, -2048, 2047).astype(np.int16)

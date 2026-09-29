@@ -45,7 +45,7 @@ module zerochan_lib_fft_driver #
 
     zerochan_lib_fft_1024 #
     ( .INPUT_WIDTH(INPUT_WIDTH)
-    , .TWIDDLE_WIDTH(16)
+    , .TWIDDLE_WIDTH(18)
     , .INVERSE(INVERSE)
     ) u_fft_1024
     ( .clk(clk)

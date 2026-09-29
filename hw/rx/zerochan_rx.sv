@@ -1,24 +1,34 @@
-module zerochan_rx
-( input  logic               clk
-, input  logic               arst
+module zerochan_rx #
+( parameter int INPUT_WIDTH = 12
+, parameter int FFT_N = 1024
+, parameter int CP = 61
 
-, input  logic signed [11:0] i_re
-, input  logic signed [11:0] i_im
+, parameter int PILOT_SPACING = 16
+, parameter int PILOT_OFFSET = 8
+)
+( input  logic                 clk
+, input  logic                 rst
 
-, output logic               o_valid
-, output logic        [ 9:0] o_idx
-, output logic signed [15:0] o_re
-, output logic signed [15:0] o_im
+, input  logic [INPUT_WIDTH:0] i_re
+, input  logic [INPUT_WIDTH:0] i_im
+
+, output logic                 o_valid
+, output logic [          9:0] o_idx
+, output logic [          9:0] o_re
+, output logic [          9:0] o_im
 );
 
-    logic rst;
+    localparam int FFT_STAGES = $clog2(FFT_N);
+    localparam int INDEX_WIDTH = FFT_STAGES;
+    localparam int FFT_WIDTH = INPUT_WIDTH + FFT_STAGES;
 
-    logic [10:0] sync_idx;
-    logic [9:0] fft_idx, comm_idx, eq_idx;
-    logic signed [11:0] sync_re, sync_im;
-    logic signed [21:0] fft_re, fft_im;
-    logic signed [15:0] comm_re, comm_im;
-    logic signed [15:0] eq_re, eq_im;
+    logic [INDEX_WIDTH:0] sync_idx;
+    logic [INDEX_WIDTH-1:0] fft_idx, comm_idx, eq_idx;
+    logic [INPUT_WIDTH-1:0] sync_re, sync_im;
+    logic [FFT_WIDTH-1:0] fft_re, fft_im;
+    logic [17:0] comm_re, comm_im;
+    logic [18*2-1:0] comm_est [4];
+    logic [15:0] eq_re, eq_im;
 
     logic eq_valid;
 
@@ -35,12 +45,10 @@ module zerochan_rx
         end
     end
 
-    magrx_rst u_rst (clk, arst, rst);
-
     zerochan_rx_sync #
-    ( .DW(12)
-    , .N(1024)
-    , .CP(61)
+    ( .DW(INPUT_WIDTH)
+    , .N(FFT_N)
+    , .CP(CP)
     ) u_sync
     ( .clk(clk)
     , .rst(rst)
@@ -54,7 +62,8 @@ module zerochan_rx
     );
 
     zerochan_lib_fft_driver #
-    ( .INPUT_WIDTH(12)
+    ( .INPUT_WIDTH(INPUT_WIDTH)
+    , .FFT_N(FFT_N)
     ) u_fft
     ( .clk(clk)
 
@@ -68,25 +77,39 @@ module zerochan_rx
     , .o_im(fft_im)
     );
 
-    zerochan_rx_commutator #(1024, 22, 16) u_commutator
+    zerochan_rx_commutator #
+    ( .FFT_N(FFT_N)
+    , .INPUT_WIDTH(FFT_WIDTH)
+    , .OUTPUT_WIDTH(18)
+
+    , .PILOT_SPACING(PILOT_SPACING)
+    , .PILOT_OFFSET(PILOT_OFFSET)
+    ) u_commutator
     ( .clk(clk)
-
     , .i_ce(ce)
-    , .i_idx(fft_idx)
-    , .o_idx(comm_idx)
 
+    , .i_idx(fft_idx)
     , .i_re(fft_re)
     , .i_im(fft_im)
 
+    , .o_idx(comm_idx)
     , .o_re(comm_re)
     , .o_im(comm_im)
+    , .o_est(comm_est)
     );
 
-    zerochan_rx_eq #(1024) u_eq
+    zerochan_rx_eq #
+    ( .FFT_N(FFT_N)
+    , .INPUT_WIDTH(18)
+    , .OUTPUT_WIDTH(10)
+    , .PILOT_SPACING(PILOT_SPACING)
+    , .PILOT_OFFSET(PILOT_OFFSET)
+    ) u_eq
     ( .clk(clk)
-
     , .i_ce(ce)
+
     , .i_idx(comm_idx)
+    , .i_est(comm_est)
     , .i_re(comm_re)
     , .i_im(comm_im)
 

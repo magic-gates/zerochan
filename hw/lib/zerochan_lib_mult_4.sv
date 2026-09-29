@@ -33,7 +33,7 @@ module zerochan_lib_mult_4 #
             s3 <= a_re + a_im;
 
             b_re_1 <= b_re;
-            b_im_1 <= CONJ ? -b_im : (b_im);
+            b_im_1 <= CONJ ? -b_im : b_im;
             a_im_1 <= a_im;
         end
     end

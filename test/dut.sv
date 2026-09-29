@@ -17,9 +17,13 @@ module dut
 
 , output logic               o_rx_valid
 , output logic        [ 9:0] o_rx_idx
-, output logic signed [15:0] o_rx_re
-, output logic signed [15:0] o_rx_im
+, output logic signed [ 9:0] o_rx_re
+, output logic signed [ 9:0] o_rx_im
 );
+
+    logic rst;
+
+    magrx_rst u_rst (clk, arst, rst);
 
     zerochan_tx u_tx_dut
     ( .clk(clk)
@@ -37,7 +41,7 @@ module dut
 
     zerochan_rx u_rx_dut
     ( .clk(clk)
-    , .arst(arst)
+    , .rst(rst)
 
     , .i_re(i_loop_re)
     , .i_im(i_loop_im)

@@ -1,6 +1,4 @@
 {
-  description = "Python project with pyproject.toml + nix";
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
@@ -16,10 +14,6 @@
       system:
       let
         pkgs = import nixpkgs { inherit system; };
-
-        python = pkgs.python313;
-
-        venvDir = ".venv";
       in
       {
         devShells.default = pkgs.mkShell {

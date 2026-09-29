@@ -5,8 +5,8 @@ module zerochan_rx_sync #
 
 , parameter int ANGLE = 16
 , parameter int CC_STAGES = 16
-, parameter int LOOP_KP = 2
-, parameter int LOOP_KI = 6
+, parameter int LOOP_KP = 3
+, parameter int LOOP_KI = 8
 , parameter int MX_LUT_DEPTH = 12
 , parameter int MX_LUT_WIDTH = DW + 2
 
@@ -194,7 +194,6 @@ module zerochan_rx_sync #
     logic [ID-1:0] peak_idx;
 
     wire boundary = mx_idx_3 == BOUNDARY;
-    wire peak_valid = last_peak > ID'(24);
 
     always_ff @(posedge clk) begin
         if (m_mag > last_peak || boundary) begin
@@ -223,7 +222,7 @@ module zerochan_rx_sync #
     wire signed [MW-1:0] im_shr = cc_im >>> cc_stage;
 
     always_ff @(posedge clk) begin
-        if (boundary && peak_valid) begin
+        if (boundary) begin
             unique case ({peak_re[MW-1], peak_im[MW-1]})
                 2'b00,
                 2'b01: begin
@@ -296,7 +295,7 @@ module zerochan_rx_sync #
     //     dev_valid <= boundary;
     // end
 
-    localparam logic [ID-1:0] REF = (N - 1) + 2;
+    localparam logic [ID-1:0] REF = (N - 1) + 4;
     localparam logic [ID-1:0] WRAP = (LEN / 2) - CP;
 
     logic err_late;
@@ -434,7 +433,6 @@ module zerochan_rx_sync #
     logic [MX_LUT_WIDTH-1:0] lut [2**MX_LUT_DEPTH];
 
     logic signed [ANGLE-1:0] vel;
-    logic signed [MX_AW-1:0] acc;
 
     always_ff @(posedge clk) begin
         if (rst) begin
@@ -443,6 +441,8 @@ module zerochan_rx_sync #
             vel <= vel - pi_ffo;
         end
     end
+
+    logic signed [MX_AW-1:0] acc;
 
     always_ff @(posedge clk) begin
         if (rst) begin
@@ -509,10 +509,10 @@ module zerochan_rx_sync #
 
     logic [ID-1:0] mx_idx_0, mx_idx_1, mx_idx_2, mx_idx_3;
 
-    logic signed [DW+FW+1:0] mx_re, mx_im;
+    logic signed [DW:0] mx_re, mx_im;
 
-    assign o_re = mx_re[DW+FW-1:0];
-    assign o_im = mx_im[DW+FW-1:0];
+    assign o_re = mx_re[DW-1:0];
+    assign o_im = mx_im[DW-1:0];
 
     always_ff @(posedge clk) begin
         mx_idx_0 <= agc_idx_1;
@@ -534,7 +534,7 @@ module zerochan_rx_sync #
            var automatic int cos, sin;
 
            theta = ($atan(1.0) * 2) / (2**MX_LUT_DEPTH) * real'(i);
-           sin = mx_lut_scale($sin(theta));
+           sin = mx_lut_scale($sin(theta) * $cos($atan(1.0)));
 
            lut[i] = sin;
         end
