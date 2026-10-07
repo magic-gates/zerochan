@@ -1,2 +1,2 @@
-# Synthesizable OFDM radio
+# Synthesizable SC-FDE radio
 *...todo*

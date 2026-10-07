@@ -1,60 +1,60 @@
-`timescale 1ns / 1ps
-
 module dut
 ( input  logic               clk
-, input  logic               arst
+, input  logic               rst
 
-, input  logic               i_tx_valid
-, output logic               o_tx_ready
-, input  logic signed [11:0] i_tx_re
-, input  logic signed [11:0] i_tx_im
+, input  logic               tx_s_valid
+, output logic               tx_s_ready
+, input  logic signed [11:0] tx_s_re
+, input  logic signed [11:0] tx_s_im
 
-, output logic signed [11:0] o_loop_re
-, output logic signed [11:0] o_loop_im
+, output logic               tx_m_valid
+, input  logic               tx_m_ready
+, output logic signed [11:0] tx_m_re
+, output logic signed [11:0] tx_m_im
 
-, input  logic signed [11:0] i_loop_re
-, input  logic signed [11:0] i_loop_im
+, input  logic               rx_ce
 
-, output logic               o_rx_valid
-, output logic        [ 9:0] o_rx_idx
-, output logic signed [ 9:0] o_rx_re
-, output logic signed [ 9:0] o_rx_im
+, input  logic signed [11:0] rx_s_re
+, input  logic signed [11:0] rx_s_im
+
+, output logic               rx_m_valid
+, input  logic signed [11:0] rx_m_re
+, input  logic signed [11:0] rx_m_im
 );
 
-    logic rst;
-
-    magrx_rst u_rst (clk, arst, rst);
-
-    zerochan_tx u_tx_dut
-    ( .clk(clk)
-
-    , .i_valid(i_tx_valid)
-    , .o_ready(o_tx_ready)
-    , .o_idx()
-
-    , .i_re(i_tx_re)
-    , .i_im(i_tx_im)
-
-    , .o_re(o_loop_re)
-    , .o_im(o_loop_im)
-    );
-
-    zerochan_rx u_rx_dut
+    zerochan_tx #
+    ( .DW(12)
+    , .DATA_LEN(480)
+    , .UW_LEN(32)
+    , .UW_INIT("uw.mem")
+    ) u_tx
     ( .clk(clk)
     , .rst(rst)
 
-    , .i_re(i_loop_re)
-    , .i_im(i_loop_im)
+    , .s_valid(tx_s_valid)
+    , .s_ready(tx_s_ready)
+    , .s_re(tx_s_re)
+    , .s_im(tx_s_im)
 
-    , .o_valid(o_rx_valid)
-    , .o_idx(o_rx_idx)
-    , .o_re(o_rx_re)
-    , .o_im(o_rx_im)
+    , .m_valid(tx_m_valid)
+    , .m_ready(tx_m_ready)
+    , .m_re(tx_m_re)
+    , .m_im(tx_m_im)
     );
 
-    initial begin
-        $dumpfile("wave.fst");
-        $dumpvars(0, dut);
-    end
+    zerochan_rx #
+    ( .DW(12)
+    ) u_rx
+    ( .clk(clk)
+    , .rst(rst)
+    , .ce(rx_ce)
 
-endmodule
+    , .s_re(rx_s_re)
+    , .s_im(rx_s_im)
+
+    , .m_valid(rx_m_valid)
+    , .m_re(rx_m_re)
+    , .m_im(rx_m_im)
+    );
+
+endmodule : dut
