@@ -7,8 +7,8 @@
 SIM ?= verilator
 TOPLEVEL_LANG ?= verilog
 
-VERILOG_SOURCES += $(PWD)/../hw/lib/**.sv
-VERILOG_SOURCES += $(PWD)/../hw/**.sv
+VERILOG_SOURCES += $(PWD)/../v2/lib/**.sv
+VERILOG_SOURCES += $(PWD)/../v2/**.sv
 VERILOG_SOURCES += $(PWD)/dut.sv
 # use VHDL_SOURCES for VHDL files
 

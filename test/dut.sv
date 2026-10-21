@@ -12,21 +12,22 @@ module dut
 , output logic signed [11:0] tx_m_re
 , output logic signed [11:0] tx_m_im
 
-, input  logic               rx_ce
-
+, input  logic               rx_s_valid
+, output logic               rx_s_ready
 , input  logic signed [11:0] rx_s_re
 , input  logic signed [11:0] rx_s_im
 
 , output logic               rx_m_valid
-, input  logic signed [11:0] rx_m_re
-, input  logic signed [11:0] rx_m_im
+, input  logic               rx_m_ready
+, output logic signed [15:0] rx_m_re
+, output logic signed [15:0] rx_m_im
 );
 
     zerochan_tx #
     ( .DW(12)
-    , .DATA_LEN(480)
-    , .UW_LEN(32)
-    , .UW_INIT("uw.mem")
+    , .DF_LEN(480)
+    , .TF_LEN(48)
+    , .TF_INIT("tf.mem")
     ) u_tx
     ( .clk(clk)
     , .rst(rst)
@@ -47,14 +48,20 @@ module dut
     ) u_rx
     ( .clk(clk)
     , .rst(rst)
-    , .ce(rx_ce)
 
-    , .s_re(rx_s_re)
-    , .s_im(rx_s_im)
+    , .s_axis_tvalid(rx_s_valid)
+    , .s_axis_tready(rx_s_ready)
+    , .s_axis_tdata({rx_s_re, rx_s_im})
 
-    , .m_valid(rx_m_valid)
-    , .m_re(rx_m_re)
-    , .m_im(rx_m_im)
+    , .m_axis_tvalid(rx_m_valid)
+    , .m_axis_tready(rx_m_ready)
+    , .m_axis_tdata({rx_m_re, rx_m_im})
+    , .m_axis_tuser()
     );
+
+    initial begin
+        $dumpfile("wave.fst");
+        $dumpvars(0, dut);
+    end
 
 endmodule : dut

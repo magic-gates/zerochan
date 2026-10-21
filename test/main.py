@@ -2,31 +2,49 @@ from cocotb.triggers import RisingEdge
 from cocotb.clock import Clock
 import cocotb
 import numpy as np
+import matplotlib.pyplot as plt
 
 BSIZE = 480
-N_SYM = 100
+N_SYM = 40_000
+SKIP_SYM = 20_000
 
 @cocotb.test()
 async def test(dut):
     Clock(dut.clk, 10, unit="ns").start()
     await reset(dut)
 
-    # signal = [ 2047 + 0j ] * (N_SYM * BSIZE)
+    worst = [
+        -2047+0j,
+        -2047+0j,
+        2047+0j,
+        -2047+0j,
+        2047+0j,
+        2047+0j,
+        -2047+0j,
+        2047+0j,
+        -2047+0j,
+        -2047+0j,
+    ]
+
+    # signal = ([ 0 + 0j ] * 256) + worst + ([ 0 + 0j ] * (N_SYM * BSIZE))
     signal = generate_qpsk(N_SYM * BSIZE) * 2047
 
     cocotb.start_soon(channel(dut))
+    cocotb.start_soon(tx(dut, signal))
 
-    await tx(dut, signal)
+    captured = await rx(dut)
+    plot(captured)
 
 async def channel(dut):
-    dut.tx_m_ready.value = 1
+    dut.rx_m_ready.value = 1
 
-    cfo_effect = CFOChannel(cfo=-3.2)
+    cfo_effect = CFOChannel(cfo=2.0)
     path_effect = MultipathChannel(taps=[1.0, 0.3 + 0.2j, 0.1j])
-    awgn_effect = AWGNChannel(snr_db=20, sig_pwr=2047.0**2)
+    awgn_effect = AWGNChannel(snr_db=40, sig_pwr=2047.0**2)
 
     while True:
-        dut.rx_ce.value = dut.tx_m_valid.value
+        dut.tx_m_ready.value = dut.rx_s_ready.value
+        dut.rx_s_valid.value = dut.tx_m_valid.value
 
         re = dut.tx_m_re.value.to_signed()
         im = dut.tx_m_im.value.to_signed()
@@ -45,6 +63,31 @@ async def channel(dut):
 
         await RisingEdge(dut.clk)
 
+async def external_channel(dut):
+    data = np.fromfile("signal.bin", dtype=np.int16)
+
+    I = data[0::2]
+    Q = data[1::2]
+
+    signal = I + 1j * Q
+
+    dut.rx_m_ready.value = 1
+
+    for sample in signal:
+        dut.rx_s_valid.value = 1
+
+        dut.rx_s_re.value = int(
+            np.clip(sample.real, -2048, 2047).astype(np.int16)
+        )
+        dut.rx_s_im.value = int(
+            np.clip(sample.imag, -2048, 2047).astype(np.int16)
+        )
+
+        while True:
+            await RisingEdge(dut.clk)
+            if dut.rx_s_ready.value == 1:
+                break
+
 async def tx(dut, signal):
     for sample in signal:
         dut.tx_s_re.value = int(np.clip(sample.real, -2048, 2047).astype(np.int16))
@@ -55,6 +98,23 @@ async def tx(dut, signal):
             await RisingEdge(dut.clk)
             if dut.tx_s_ready.value == 1:
                 break
+
+async def rx(dut):
+    rx_sym = 0
+    captured = []
+
+    while rx_sym < N_SYM - 100:
+        await RisingEdge(dut.clk)
+
+        if dut.rx_m_valid.value == 1:
+            rx_sym += 1
+
+            if rx_sym > SKIP_SYM:
+                re = dut.rx_m_re.value.to_signed()
+                im = dut.rx_m_im.value.to_signed()
+                captured.append(complex(re, im))
+
+    return np.array(captured)
 
 def generate_qpsk(n):
     symbols = np.array([1+1j, -1+1j, -1-1j, 1-1j])
@@ -118,3 +178,15 @@ async def reset(dut):
     await RisingEdge(dut.clk)
     dut.rst.value = 0
     await RisingEdge(dut.clk)
+
+def plot(s):
+    plt.figure(figsize=(10, 10))
+    plt.scatter(s.real, s.imag, s=0.2)
+    # plt.hist2d(s.real, s.imag, bins=256, cmap='viridis')
+    # plt.colorbar(label='Density')
+    plt.title(f"Constellation")
+    plt.xlabel("Re")
+    plt.ylabel("Im")
+    plt.grid(True, alpha=0.3)
+    plt.show()
+    plt.savefig("constallation.png")
