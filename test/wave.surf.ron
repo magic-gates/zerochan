@@ -29,12 +29,9 @@
         active_scope: Some(WaveScope((
             strs: [
                 "dut",
-                "u_rx",
-                "u_tde",
-                "upd_re",
-                "upd_re",
+                "u_tx",
             ],
-            id: Wellen((47)),
+            id: Wellen((103)),
         ))),
         items_tree: (
             items: [
@@ -55,6 +52,24 @@
                     level: 0,
                     unfolded: true,
                     selected: false,
+                ),
+                (
+                    item_ref: (192),
+                    level: 0,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (193),
+                    level: 0,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (194),
+                    level: 0,
+                    unfolded: true,
+                    selected: true,
                 ),
                 (
                     item_ref: (15),
@@ -161,510 +176,6 @@
             ],
         ),
         displayed_items: {
-            (168): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "dut",
-                            "u_rx",
-                            "u_tde",
-                        ],
-                        id: Wellen((37)),
-                    ),
-                    name: "err_re",
-                    id: Wellen((352)),
-                    index: None,
-                ),
-                color: None,
-                background_color: None,
-                display_name: "err_re [13:0]",
-                display_name_type: Unique,
-                manual_name: None,
-                format: Some("Signed"),
-                field_formats: [],
-                height_scaling_factor: Some(2.0),
-                analog: Some((
-                    settings: (
-                        render_style: Step,
-                        y_axis_scale: Viewport,
-                    ),
-                )),
-            )),
-            (186): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "dut",
-                            "u_rx",
-                            "u_ps",
-                        ],
-                        id: Wellen((11)),
-                    ),
-                    name: "m_re",
-                    id: Wellen((158)),
-                    index: None,
-                ),
-                color: None,
-                background_color: None,
-                display_name: "…u_ps.m_re [12:0]",
-                display_name_type: Unique,
-                manual_name: None,
-                format: Some("Signed"),
-                field_formats: [],
-                height_scaling_factor: Some(2.0),
-                analog: Some((
-                    settings: (
-                        render_style: Step,
-                        y_axis_scale: Viewport,
-                    ),
-                )),
-            )),
-            (153): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "dut",
-                            "u_rx",
-                            "u_timing",
-                        ],
-                        id: Wellen((96)),
-                    ),
-                    name: "abs_mag",
-                    id: Wellen((1064)),
-                    index: None,
-                ),
-                color: None,
-                background_color: None,
-                display_name: "abs_mag [9:0]",
-                display_name_type: Unique,
-                manual_name: None,
-                format: Some("Unsigned"),
-                field_formats: [],
-                height_scaling_factor: Some(2.0),
-                analog: Some((
-                    settings: (
-                        render_style: Step,
-                        y_axis_scale: Viewport,
-                    ),
-                )),
-            )),
-            (113): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "dut",
-                            "u_rx",
-                        ],
-                        id: Wellen((4)),
-                    ),
-                    name: "tde_re",
-                    id: Wellen((63)),
-                    index: None,
-                ),
-                color: None,
-                background_color: None,
-                display_name: "tde_re [12:0]",
-                display_name_type: Unique,
-                manual_name: None,
-                format: Some("Signed"),
-                field_formats: [],
-                height_scaling_factor: Some(2.0),
-                analog: Some((
-                    settings: (
-                        render_style: Step,
-                        y_axis_scale: Viewport,
-                    ),
-                )),
-            )),
-            (169): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "dut",
-                            "u_rx",
-                            "u_tde",
-                        ],
-                        id: Wellen((37)),
-                    ),
-                    name: "err_im",
-                    id: Wellen((353)),
-                    index: None,
-                ),
-                color: None,
-                background_color: None,
-                display_name: "err_im [13:0]",
-                display_name_type: Unique,
-                manual_name: None,
-                format: Some("Signed"),
-                field_formats: [],
-                height_scaling_factor: Some(2.0),
-                analog: Some((
-                    settings: (
-                        render_style: Step,
-                        y_axis_scale: Viewport,
-                    ),
-                )),
-            )),
-            (152): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "dut",
-                            "u_rx",
-                            "u_timing",
-                        ],
-                        id: Wellen((96)),
-                    ),
-                    name: "rel_mag",
-                    id: Wellen((1063)),
-                    index: None,
-                ),
-                color: None,
-                background_color: None,
-                display_name: "rel_mag [9:0]",
-                display_name_type: Unique,
-                manual_name: None,
-                format: Some("Unsigned"),
-                field_formats: [],
-                height_scaling_factor: Some(2.0),
-                analog: Some((
-                    settings: (
-                        render_style: Step,
-                        y_axis_scale: Viewport,
-                    ),
-                )),
-            )),
-            (184): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "dut",
-                            "u_rx",
-                            "u_tde",
-                        ],
-                        id: Wellen((37)),
-                    ),
-                    name: "m_im",
-                    id: Wellen((262)),
-                    index: None,
-                ),
-                color: None,
-                background_color: None,
-                display_name: "…u_tde.m_im [12:0]",
-                display_name_type: Unique,
-                manual_name: None,
-                format: Some("Signed"),
-                field_formats: [],
-                height_scaling_factor: Some(2.0),
-                analog: Some((
-                    settings: (
-                        render_style: Step,
-                        y_axis_scale: Viewport,
-                    ),
-                )),
-            )),
-            (182): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "dut",
-                            "u_rx",
-                            "u_tde",
-                        ],
-                        id: Wellen((37)),
-                    ),
-                    name: "ref_im",
-                    id: Wellen((351)),
-                    index: None,
-                ),
-                color: None,
-                background_color: None,
-                display_name: "ref_im [12:0]",
-                display_name_type: Unique,
-                manual_name: None,
-                format: Some("Signed"),
-                field_formats: [],
-                height_scaling_factor: Some(2.0),
-                analog: Some((
-                    settings: (
-                        render_style: Step,
-                        y_axis_scale: Viewport,
-                    ),
-                )),
-            )),
-            (36): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "dut",
-                            "u_tx",
-                        ],
-                        id: Wellen((103)),
-                    ),
-                    name: "s_re",
-                    id: Wellen((1128)),
-                    index: None,
-                ),
-                color: None,
-                background_color: None,
-                display_name: "s_re [11:0]",
-                display_name_type: Unique,
-                manual_name: None,
-                format: Some("Signed"),
-                field_formats: [],
-                height_scaling_factor: Some(2.0),
-                analog: Some((
-                    settings: (
-                        render_style: Step,
-                        y_axis_scale: Viewport,
-                    ),
-                )),
-            )),
-            (53): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "dut",
-                        ],
-                        id: Wellen((3)),
-                    ),
-                    name: "clk",
-                    id: Wellen((19)),
-                    index: None,
-                ),
-                color: None,
-                background_color: None,
-                display_name: "clk",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-                analog: None,
-            )),
-            (16): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "dut",
-                        ],
-                        id: Wellen((3)),
-                    ),
-                    name: "tx_m_im",
-                    id: Wellen((28)),
-                    index: None,
-                ),
-                color: None,
-                background_color: None,
-                display_name: "tx_m_im [11:0]",
-                display_name_type: Unique,
-                manual_name: None,
-                format: Some("Signed"),
-                field_formats: [],
-                height_scaling_factor: Some(2.0),
-                analog: Some((
-                    settings: (
-                        render_style: Step,
-                        y_axis_scale: Viewport,
-                    ),
-                )),
-            )),
-            (160): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "dut",
-                            "u_rx",
-                            "u_timing",
-                        ],
-                        id: Wellen((96)),
-                    ),
-                    name: "mag",
-                    id: Wellen((1065)),
-                    index: None,
-                ),
-                color: None,
-                background_color: None,
-                display_name: "mag [9:0]",
-                display_name_type: Unique,
-                manual_name: None,
-                format: Some("Unsigned"),
-                field_formats: [],
-                height_scaling_factor: Some(2.0),
-                analog: Some((
-                    settings: (
-                        render_style: Step,
-                        y_axis_scale: Viewport,
-                    ),
-                )),
-            )),
-            (183): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "dut",
-                            "u_rx",
-                            "u_tde",
-                        ],
-                        id: Wellen((37)),
-                    ),
-                    name: "m_re",
-                    id: Wellen((261)),
-                    index: None,
-                ),
-                color: None,
-                background_color: None,
-                display_name: "…u_tde.m_re [12:0]",
-                display_name_type: Unique,
-                manual_name: None,
-                format: Some("Signed"),
-                field_formats: [],
-                height_scaling_factor: Some(2.0),
-                analog: Some((
-                    settings: (
-                        render_style: Step,
-                        y_axis_scale: Viewport,
-                    ),
-                )),
-            )),
-            (37): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "dut",
-                            "u_tx",
-                        ],
-                        id: Wellen((103)),
-                    ),
-                    name: "s_im",
-                    id: Wellen((1129)),
-                    index: None,
-                ),
-                color: None,
-                background_color: None,
-                display_name: "s_im [11:0]",
-                display_name_type: Unique,
-                manual_name: None,
-                format: Some("Signed"),
-                field_formats: [],
-                height_scaling_factor: Some(2.0),
-                analog: Some((
-                    settings: (
-                        render_style: Step,
-                        y_axis_scale: Viewport,
-                    ),
-                )),
-            )),
-            (167): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "dut",
-                            "u_rx",
-                            "u_tde",
-                        ],
-                        id: Wellen((37)),
-                    ),
-                    name: "train",
-                    id: Wellen((316)),
-                    index: None,
-                ),
-                color: None,
-                background_color: None,
-                display_name: "train",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-                analog: None,
-            )),
-            (181): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "dut",
-                            "u_rx",
-                            "u_tde",
-                        ],
-                        id: Wellen((37)),
-                    ),
-                    name: "ref_re",
-                    id: Wellen((350)),
-                    index: None,
-                ),
-                color: None,
-                background_color: None,
-                display_name: "ref_re [12:0]",
-                display_name_type: Unique,
-                manual_name: None,
-                format: Some("Signed"),
-                field_formats: [],
-                height_scaling_factor: Some(2.0),
-                analog: Some((
-                    settings: (
-                        render_style: Step,
-                        y_axis_scale: Viewport,
-                    ),
-                )),
-            )),
-            (187): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "dut",
-                            "u_rx",
-                            "u_ps",
-                        ],
-                        id: Wellen((11)),
-                    ),
-                    name: "m_im",
-                    id: Wellen((159)),
-                    index: None,
-                ),
-                color: None,
-                background_color: None,
-                display_name: "…u_ps.m_im [12:0]",
-                display_name_type: Unique,
-                manual_name: None,
-                format: Some("Signed"),
-                field_formats: [],
-                height_scaling_factor: Some(2.0),
-                analog: Some((
-                    settings: (
-                        render_style: Step,
-                        y_axis_scale: Viewport,
-                    ),
-                )),
-            )),
-            (114): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "dut",
-                            "u_rx",
-                        ],
-                        id: Wellen((4)),
-                    ),
-                    name: "tde_im",
-                    id: Wellen((64)),
-                    index: None,
-                ),
-                color: None,
-                background_color: None,
-                display_name: "tde_im [12:0]",
-                display_name_type: Unique,
-                manual_name: None,
-                format: Some("Signed"),
-                field_formats: [],
-                height_scaling_factor: Some(2.0),
-                analog: Some((
-                    settings: (
-                        render_style: Step,
-                        y_axis_scale: Viewport,
-                    ),
-                )),
-            )),
             (15): Variable((
                 variable_ref: (
                     path: (
@@ -716,12 +227,585 @@
                 height_scaling_factor: None,
                 analog: None,
             )),
+            (184): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "dut",
+                            "u_rx",
+                            "u_tde",
+                        ],
+                        id: Wellen((37)),
+                    ),
+                    name: "m_im",
+                    id: Wellen((262)),
+                    index: None,
+                ),
+                color: None,
+                background_color: None,
+                display_name: "…u_tde.m_im [12:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Signed"),
+                field_formats: [],
+                height_scaling_factor: Some(2.0),
+                analog: Some((
+                    settings: (
+                        render_style: Step,
+                        y_axis_scale: Viewport,
+                    ),
+                )),
+            )),
+            (152): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "dut",
+                            "u_rx",
+                            "u_timing",
+                        ],
+                        id: Wellen((96)),
+                    ),
+                    name: "rel_mag",
+                    id: Wellen((1063)),
+                    index: None,
+                ),
+                color: None,
+                background_color: None,
+                display_name: "rel_mag [9:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Unsigned"),
+                field_formats: [],
+                height_scaling_factor: Some(2.0),
+                analog: Some((
+                    settings: (
+                        render_style: Step,
+                        y_axis_scale: Viewport,
+                    ),
+                )),
+            )),
+            (168): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "dut",
+                            "u_rx",
+                            "u_tde",
+                        ],
+                        id: Wellen((37)),
+                    ),
+                    name: "err_re",
+                    id: Wellen((352)),
+                    index: None,
+                ),
+                color: None,
+                background_color: None,
+                display_name: "err_re [13:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Signed"),
+                field_formats: [],
+                height_scaling_factor: Some(2.0),
+                analog: Some((
+                    settings: (
+                        render_style: Step,
+                        y_axis_scale: Viewport,
+                    ),
+                )),
+            )),
+            (183): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "dut",
+                            "u_rx",
+                            "u_tde",
+                        ],
+                        id: Wellen((37)),
+                    ),
+                    name: "m_re",
+                    id: Wellen((261)),
+                    index: None,
+                ),
+                color: None,
+                background_color: None,
+                display_name: "…u_tde.m_re [12:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Signed"),
+                field_formats: [],
+                height_scaling_factor: Some(2.0),
+                analog: Some((
+                    settings: (
+                        render_style: Step,
+                        y_axis_scale: Viewport,
+                    ),
+                )),
+            )),
+            (167): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "dut",
+                            "u_rx",
+                            "u_tde",
+                        ],
+                        id: Wellen((37)),
+                    ),
+                    name: "train",
+                    id: Wellen((316)),
+                    index: None,
+                ),
+                color: None,
+                background_color: None,
+                display_name: "train",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+                analog: None,
+            )),
+            (187): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "dut",
+                            "u_rx",
+                            "u_ps",
+                        ],
+                        id: Wellen((11)),
+                    ),
+                    name: "m_im",
+                    id: Wellen((159)),
+                    index: None,
+                ),
+                color: None,
+                background_color: None,
+                display_name: "…u_ps.m_im [12:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Signed"),
+                field_formats: [],
+                height_scaling_factor: Some(2.0),
+                analog: Some((
+                    settings: (
+                        render_style: Step,
+                        y_axis_scale: Viewport,
+                    ),
+                )),
+            )),
+            (193): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "dut",
+                            "u_tx",
+                        ],
+                        id: Wellen((103)),
+                    ),
+                    name: "tf",
+                    id: Wellen((1136)),
+                    index: None,
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tf",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+                analog: None,
+            )),
+            (114): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "dut",
+                            "u_rx",
+                        ],
+                        id: Wellen((4)),
+                    ),
+                    name: "tde_im",
+                    id: Wellen((64)),
+                    index: None,
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tde_im [12:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Signed"),
+                field_formats: [],
+                height_scaling_factor: Some(2.0),
+                analog: Some((
+                    settings: (
+                        render_style: Step,
+                        y_axis_scale: Viewport,
+                    ),
+                )),
+            )),
+            (36): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "dut",
+                            "u_tx",
+                        ],
+                        id: Wellen((103)),
+                    ),
+                    name: "s_re",
+                    id: Wellen((1128)),
+                    index: None,
+                ),
+                color: None,
+                background_color: None,
+                display_name: "s_re [11:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Signed"),
+                field_formats: [],
+                height_scaling_factor: Some(2.0),
+                analog: Some((
+                    settings: (
+                        render_style: Step,
+                        y_axis_scale: Viewport,
+                    ),
+                )),
+            )),
+            (182): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "dut",
+                            "u_rx",
+                            "u_tde",
+                        ],
+                        id: Wellen((37)),
+                    ),
+                    name: "ref_im",
+                    id: Wellen((351)),
+                    index: None,
+                ),
+                color: None,
+                background_color: None,
+                display_name: "ref_im [12:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Signed"),
+                field_formats: [],
+                height_scaling_factor: Some(2.0),
+                analog: Some((
+                    settings: (
+                        render_style: Step,
+                        y_axis_scale: Viewport,
+                    ),
+                )),
+            )),
+            (113): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "dut",
+                            "u_rx",
+                        ],
+                        id: Wellen((4)),
+                    ),
+                    name: "tde_re",
+                    id: Wellen((63)),
+                    index: None,
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tde_re [12:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Signed"),
+                field_formats: [],
+                height_scaling_factor: Some(2.0),
+                analog: Some((
+                    settings: (
+                        render_style: Step,
+                        y_axis_scale: Viewport,
+                    ),
+                )),
+            )),
+            (53): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "dut",
+                        ],
+                        id: Wellen((3)),
+                    ),
+                    name: "clk",
+                    id: Wellen((19)),
+                    index: None,
+                ),
+                color: None,
+                background_color: None,
+                display_name: "clk",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+                analog: None,
+            )),
+            (186): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "dut",
+                            "u_rx",
+                            "u_ps",
+                        ],
+                        id: Wellen((11)),
+                    ),
+                    name: "m_re",
+                    id: Wellen((158)),
+                    index: None,
+                ),
+                color: None,
+                background_color: None,
+                display_name: "…u_ps.m_re [12:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Signed"),
+                field_formats: [],
+                height_scaling_factor: Some(2.0),
+                analog: Some((
+                    settings: (
+                        render_style: Step,
+                        y_axis_scale: Viewport,
+                    ),
+                )),
+            )),
+            (37): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "dut",
+                            "u_tx",
+                        ],
+                        id: Wellen((103)),
+                    ),
+                    name: "s_im",
+                    id: Wellen((1129)),
+                    index: None,
+                ),
+                color: None,
+                background_color: None,
+                display_name: "s_im [11:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Signed"),
+                field_formats: [],
+                height_scaling_factor: Some(2.0),
+                analog: Some((
+                    settings: (
+                        render_style: Step,
+                        y_axis_scale: Viewport,
+                    ),
+                )),
+            )),
+            (160): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "dut",
+                            "u_rx",
+                            "u_timing",
+                        ],
+                        id: Wellen((96)),
+                    ),
+                    name: "mag",
+                    id: Wellen((1065)),
+                    index: None,
+                ),
+                color: None,
+                background_color: None,
+                display_name: "mag [9:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Unsigned"),
+                field_formats: [],
+                height_scaling_factor: Some(2.0),
+                analog: Some((
+                    settings: (
+                        render_style: Step,
+                        y_axis_scale: Viewport,
+                    ),
+                )),
+            )),
+            (192): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "dut",
+                            "u_tx",
+                        ],
+                        id: Wellen((103)),
+                    ),
+                    name: "s_ready",
+                    id: Wellen((1127)),
+                    index: None,
+                ),
+                color: None,
+                background_color: None,
+                display_name: "s_ready",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+                analog: None,
+            )),
+            (181): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "dut",
+                            "u_rx",
+                            "u_tde",
+                        ],
+                        id: Wellen((37)),
+                    ),
+                    name: "ref_re",
+                    id: Wellen((350)),
+                    index: None,
+                ),
+                color: None,
+                background_color: None,
+                display_name: "ref_re [12:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Signed"),
+                field_formats: [],
+                height_scaling_factor: Some(2.0),
+                analog: Some((
+                    settings: (
+                        render_style: Step,
+                        y_axis_scale: Viewport,
+                    ),
+                )),
+            )),
+            (16): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "dut",
+                        ],
+                        id: Wellen((3)),
+                    ),
+                    name: "tx_m_im",
+                    id: Wellen((28)),
+                    index: None,
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx_m_im [11:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Signed"),
+                field_formats: [],
+                height_scaling_factor: Some(2.0),
+                analog: Some((
+                    settings: (
+                        render_style: Step,
+                        y_axis_scale: Viewport,
+                    ),
+                )),
+            )),
+            (194): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "dut",
+                            "u_tx",
+                        ],
+                        id: Wellen((103)),
+                    ),
+                    name: "cnt",
+                    id: Wellen((1135)),
+                    index: None,
+                ),
+                color: None,
+                background_color: None,
+                display_name: "cnt [9:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Unsigned"),
+                field_formats: [],
+                height_scaling_factor: None,
+                analog: None,
+            )),
+            (153): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "dut",
+                            "u_rx",
+                            "u_timing",
+                        ],
+                        id: Wellen((96)),
+                    ),
+                    name: "abs_mag",
+                    id: Wellen((1064)),
+                    index: None,
+                ),
+                color: None,
+                background_color: None,
+                display_name: "abs_mag [9:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Unsigned"),
+                field_formats: [],
+                height_scaling_factor: Some(2.0),
+                analog: Some((
+                    settings: (
+                        render_style: Step,
+                        y_axis_scale: Viewport,
+                    ),
+                )),
+            )),
+            (169): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "dut",
+                            "u_rx",
+                            "u_tde",
+                        ],
+                        id: Wellen((37)),
+                    ),
+                    name: "err_im",
+                    id: Wellen((353)),
+                    index: None,
+                ),
+                color: None,
+                background_color: None,
+                display_name: "err_im [13:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Signed"),
+                field_formats: [],
+                height_scaling_factor: Some(2.0),
+                analog: Some((
+                    settings: (
+                        render_style: Step,
+                        y_axis_scale: Viewport,
+                    ),
+                )),
+            )),
         },
-        display_item_ref_counter: 191,
+        display_item_ref_counter: 194,
         viewports: [
             (
-                curr_left: (0.08372694719035811),
-                curr_right: (0.08562247340520131),
+                curr_left: (0.03319366228009213),
+                curr_right: (0.037432244081707394),
                 target_left: (0.0),
                 target_right: (1.0),
                 move_start_left: (0.0),
@@ -731,10 +815,10 @@
             ),
         ],
         cursor: Some((1, [
-            74070000,
+            2276491,
         ])),
         markers: {},
-        focused_item: Some((19)),
+        focused_item: Some((5)),
         focused_transaction: (None, None),
         default_variable_name_type: Unique,
         scroll_offset: 0.0,
@@ -773,7 +857,7 @@
     variable_name_filter_focused: false,
     variable_filter: (
         name_filter_type: Contain,
-        name_filter_str: "",
+        name_filter_str: "cnt",
         name_filter_case_insensitive: true,
         include_inputs: true,
         include_outputs: true,

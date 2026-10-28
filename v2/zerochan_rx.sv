@@ -281,10 +281,10 @@ module zerochan_rx_tde #
 
             weights[10][1] <= W'({(DW-1){1'b1}});
         end else if (upd_valid) begin
-            for (int i = 0; i < LEN; i++) begin
-                weights[i][1] <= upd_re[i] >>> 4;
-                weights[i][0] <= upd_im[i] >>> 4;
-            end
+            // for (int i = 0; i < LEN; i++) begin
+                // weights[i][1] <= upd_re[i] >>> 4;
+                // weights[i][0] <= upd_im[i] >>> 4;
+            // end
         end
     end
 
